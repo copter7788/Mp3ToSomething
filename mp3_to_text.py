@@ -11,15 +11,15 @@ Beta Version 1.2
 Patch Note:
     12/4/2024 -- Get it working with the first runner
     12/4/2024 -- Add multiprocessing to speed up the process
-    13/4/2024 -- multiprocessing can be used to speed up the process
+    13/4/2024 -- Multiprocessing can be used to speed up the process
 
 Future Update:
     Add a function to covert mp4 to mp3
 """
 
 transcribed_audio_file_name = "transcribed_speech.wav"
-zoom_video_file_name = "/Users/copter7788/Downloads/xxx.mp3" # Set the path to the video file
-file_path_txt = "/Users/copter7788/Developer/transcription_MP3.txt"
+zoom_video_file_name = "xxx.mp3" # Set the path to the video file
+file_path_txt = "transcription_MP3.txt"
 
 # set language
 language = "en-EN"
@@ -89,4 +89,3 @@ if __name__ == "__main__":
         print(f"Error: {e}")
 
     print("\ncomplete.")
-# test push
