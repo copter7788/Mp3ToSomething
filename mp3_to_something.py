@@ -6,7 +6,7 @@ import speech_recognition as sr
 from moviepy.editor import AudioFileClip
 import multiprocessing
 import subprocess
-from transformers import BartForConditionalGeneration, BartTokenizer, MarianMTModel, MarianTokenizer
+from transformers import BartForConditionalGeneration, BartTokenizer
 from moviepy.editor import VideoFileClip
 
 """
@@ -16,19 +16,21 @@ Patch Note:
     12/4/2024 -- add multiprocessing to speed up the process
     13/4/2024 -- multiprocessing can be used to speed up the process
     15/4/2024 -- add a function to convert mp4 to mp3
+    15/4/2024 -- add a function to summarize the text
 
 Future Update:
-    add a function to summarize the text
+    add a function to translate the text
 
 Problem:
     text have no full stop
     sometimes wrong word by google speech recognition
     slow process summary
+    translator is fucking stupid (try)
 
 """
 
 ### Settings
-target = "xxx.mp3" # input file mp4 or mp3
+target = "xxx.mp4" # input file mp4 or mp3
 
 # set language
 language = "en-EN"
@@ -67,12 +69,23 @@ def transcribe_audio(i):
         return ""
 
 
+# Load tokenizer and model
+tokenizer = BartTokenizer.from_pretrained('facebook/bart-large-cnn')
+model = BartForConditionalGeneration.from_pretrained('facebook/bart-large-cnn')
+
+## Part of Text to Summary
+def generate_summary(text):
+    inputs = tokenizer([text], max_length=1024, return_tensors='pt', truncation=True)
+    summary_ids = model.generate(inputs['input_ids'], num_beams=4, min_length=300, max_length=3000, early_stopping=True)
+    summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
+    return summary
+
 if __name__ == "__main__":
     # Clear text
     with open("transcription_MP3.txt", "w", encoding="utf-8") as f:
         f.write("")
 
-    #condition mp4 to mp3
+    # condition mp4 to mp3
     
     if file_path_mp4.lower().endswith(".mp4"):
         mp3_file = os.path.splitext(file_path_mp4)[0] + ".mp3"
@@ -126,5 +139,6 @@ if __name__ == "__main__":
 
     print("\ncomplete.")
 
+    Summary_Script = generate_summary(script)
+    print("Summary Script:",Summary_Script)
 
-## Part of Text to Summary
