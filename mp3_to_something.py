@@ -12,17 +12,23 @@ from moviepy.editor import VideoFileClip
 """
 Beta Version 1.2
 Patch Note:
-    12/4/2024 -- Get it working with the first runner
-    12/4/2024 -- Add multiprocessing to speed up the process
-    13/4/2024 -- Multiprocessing can be used to speed up the process
-    15/4/2024 -- Add a function to convert mp4 to mp3
+    12/4/2024 -- get it working with the first runner
+    12/4/2024 -- add multiprocessing to speed up the process
+    13/4/2024 -- multiprocessing can be used to speed up the process
+    15/4/2024 -- add a function to convert mp4 to mp3
 
 Future Update:
-    Add a function to summarize the text
+    add a function to summarize the text
+
+Problem:
+    text have no full stop
+    sometimes wrong word by google speech recognition
+    slow process summary
+
 """
 
 ### Settings
-target = "xxx.mp4" # input file mp4 or mp3
+target = "xxx.mp3" # input file mp4 or mp3
 
 # set language
 language = "en-EN"
