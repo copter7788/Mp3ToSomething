@@ -10,7 +10,7 @@ from transformers import BartForConditionalGeneration, BartTokenizer
 from moviepy.editor import VideoFileClip
 
 """
-Beta Version 1.2
+Beta Version 1.5
 Patch Note:
     12/4/2024 -- get it working with the first runner
     12/4/2024 -- add multiprocessing to speed up the process
