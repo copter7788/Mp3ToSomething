@@ -19,6 +19,7 @@ Patch Note:
     13/4/2024 -- multiprocessing can be used to speed up the process
     15/4/2024 -- add a function to convert mp4 to mp3
     15/4/2024 -- add a function to summarize the text
+    22/4/2024 -- add a function to read the text (stupid)
 
 Future Update:
     add a function to translate the text
@@ -27,7 +28,8 @@ Problem:
     text have no full stop
     sometimes wrong word by google speech recognition
     slow process summary
-    translator is fucking stupid (try)
+    translator is fucking stupid (try and already delete)
+    read the text is also fucking stupid
 
 """
 
