@@ -8,7 +8,6 @@ import multiprocessing
 import subprocess
 from transformers import BartForConditionalGeneration, BartTokenizer
 from moviepy.editor import VideoFileClip
-from langdetect import detect
 
 """
 Beta Version 1.5
@@ -20,21 +19,22 @@ Patch Note:
     15/4/2024 -- add a function to convert mp4 to mp3
     15/4/2024 -- add a function to summarize the text
     22/4/2024 -- add a function to read the text (stupid)
+    30/4/2024 -- delete the function to read the text (stupid)
 
 Future Update:
     add a function to translate the text
+    slow process summary
+    use jupyter notebook for better visualization
 
 Problem:
     text have no full stop
     sometimes wrong word by google speech recognition
-    slow process summary
     translator is fucking stupid (try and already delete)
-    read the text is also fucking stupid
-
+    read the text is also fucking stupid (try and already delete)
 """
 
 ### Settings
-target = "xxx.mp4" # input file mp4 or mp3
+target = "xxx.mp3" # input file mp4 or mp3
 
 # set language
 language = "en-EN" # en-EN, jp-JP, th-TH
@@ -83,39 +83,6 @@ def generate_summary(text):
     summary_ids = model.generate(inputs['input_ids'], num_beams=4, min_length=300, max_length=3000, early_stopping=True)
     summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
     return summary
-
-## part of read the text
-
-def detect_language(text):
-    try:
-        language = detect(text)
-        return language
-    except:
-        return "Unknown"
-    
-def text_to_speech(text,rate=150,lang='x'): # caller function
-    if lang == 'x':
-        lang = detect_language(text)
-    if lang == 'en':
-        text_to_speech_en(text,rate)
-    elif lang == 'ja':
-        text_to_speech_jp(text,rate)
-    elif lang == 'th':
-        text_to_speech_th(text,rate)
-    elif lang == 'Unknown':
-        text_to_speech_en(text,rate)
-    else:
-        print("Language not supported")
-        return
-        
-def text_to_speech_en(text,rate=150):
-    subprocess.call(['say', '-v', 'Reed','-r',str(rate), text])
-
-def text_to_speech_jp(text,rate=150):
-    subprocess.call(['say', '-v', 'Kyoko','-r',str(rate), text])
-
-def text_to_speech_th(text,rate=150):
-    subprocess.call(['say', '-v', 'Kanya','-r',str(rate), text])
 
 if __name__ == "__main__":
     # Clear text
@@ -179,7 +146,6 @@ if __name__ == "__main__":
     Summary_Script = generate_summary(script)
     print("Summary Script:",Summary_Script)
 
-    # read with speech to text subprocess
-    text_to_speech(Summary_Script,150)
+
 
 
