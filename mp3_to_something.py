@@ -6,7 +6,6 @@ import speech_recognition as sr
 from moviepy.editor import AudioFileClip
 import multiprocessing
 import subprocess
-from transformers import BartForConditionalGeneration, BartTokenizer
 from moviepy.editor import VideoFileClip
 
 """
@@ -20,7 +19,7 @@ Patch Note:
     15/4/2024 -- add a function to summarize the text
     22/4/2024 -- add a function to read the text (stupid)
     30/4/2024 -- delete the function to read the text (stupid)
-
+    21/6/2024 -- remove tranformer : METAL bug
 Future Update:
     add a function to translate the text
     slow process summary
@@ -72,17 +71,6 @@ def transcribe_audio(i):
         # print(f"Error in transcribing segment {i}: {e}") # for debugging
         return ""
 
-
-# Load tokenizer and model
-tokenizer = BartTokenizer.from_pretrained('facebook/bart-large-cnn')
-model = BartForConditionalGeneration.from_pretrained('facebook/bart-large-cnn')
-
-## Part of Text to Summary
-def generate_summary(text):
-    inputs = tokenizer([text], max_length=1024, return_tensors='pt', truncation=True)
-    summary_ids = model.generate(inputs['input_ids'], num_beams=4, min_length=300, max_length=3000, early_stopping=True)
-    summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
-    return summary
 
 if __name__ == "__main__":
     # Clear text
@@ -142,10 +130,6 @@ if __name__ == "__main__":
         print(f"\nError: {e}")
 
     print("\ncomplete.")
-
-    Summary_Script = generate_summary(script)
-    print("Summary Script:",Summary_Script)
-
 
 
 
