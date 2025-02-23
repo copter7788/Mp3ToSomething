@@ -20,6 +20,7 @@ Patch Note:
     22/4/2024 -- add a function to read the text (stupid)
     30/4/2024 -- delete the function to read the text (stupid)
     21/6/2024 -- remove tranformer : METAL bug
+    23/2/2025 -- input file path with input function
 Future Update:
     add a function to translate the text
     slow process summary
@@ -33,10 +34,11 @@ Problem:
 """
 
 ### Settings
-target = "xxx.mp3" # input file mp4 or mp3
+target = input("Enter the file path: ") # input file mp4 or mp3
+# target = "" # input file mp4 or mp3
 
 # set language
-language = "en-EN" # en-EN, jp-JP, th-TH
+language = "en-EN" # en-EN, ja-JP, th-TH
 
 # separate for use multiple processes
 aaa = 60  # 60++ is stable
