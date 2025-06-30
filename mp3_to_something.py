@@ -34,11 +34,10 @@ Problem:
 """
 
 ### Settings
-target = input("Enter the file path: ") # input file mp4 or mp3
-# target = "" # input file mp4 or mp3
+target = "x.mp3"
 
 # set language
-language = "en-EN" # en-EN, ja-JP, th-TH
+language = "th-TH" # en-EN, ja-JP, th-TH
 
 # separate for use multiple processes
 aaa = 60  # 60++ is stable
